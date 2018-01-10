@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建一个函数实现克隆五种基本类型</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function clone(obj){
+      let o;
+      switch (obj) {
+          case 'undefinde':
+              break;
+          case 'string':
+              o =  obj + '';
+                break;
+          case 'number':
+              o = obj - 0;
+              break;
+          case 'boolean':
+              o = obj;
+              break;
+          case 'object'://对象和数组
+              if(Object.prototype.toString.call(obj).slice(8,-1) === 'Array') {
+                  o = [];
+                  for(let i = 0; i < obj.length; i++) {
+                      o.push(clone(obj[i]))
+                  }
+              }else{
+                  o = {};
+                  for(let k in obj) {
+                      obj[ k ] = clone(obj[ k ]);
+                  }
+              }
+              break;
+          default :
+              o = obj;
+              break;
+      }
+      return o;
+    }
+
+    let a = {
+        name: 'xx',
+        age: 11
+    };
+
+    let b = [1,2,3,4,5,6,7,8];
+
+    console.log(clone(b));
+</script>

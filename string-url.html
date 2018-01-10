@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let url = 'http://baidu.com?set=settime&for=bigman';
+    class string {
+        constructor(){
+
+        }
+        urlface () {
+            let reg = /(^=?&)=(^=?&)+/g;
+            let obj = {};
+            let ary = [];
+           let a = url.split('?');
+            ary[0] = a[1];
+            ary[0].replace(reg,()=>{
+                console.log(arguments);
+            })
+
+        };
+    }
+    let a = new string();
+    a.urlface();
+</script>
