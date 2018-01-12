@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello word</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+      <div id="app">
+          {{massage}}
+      </div>
+      <div id="app-2" v-bind:title = "massage">
+            sssssssssssssss
+      </div>
+      <div id="app-3">
+          <p v-if = "seen">
+              你看到我了
+          </p>
+      </div>
+      <div id="app-4">
+          <ol>
+              <li v-for = "todo in todos">
+                  {{todo.text}}
+              </li>
+          </ol>
+      </div>
+      <div id="app-5">
+          <p>
+              {{massage}}
+          </p>
+          <button v-on:click = "revermassage">逆转消息</button>
+      </div>
+      <div id="app-6">
+          <p>{{massage}}</p>
+          <input v-model = "massage" type="text">
+      </div>
+      <div id="app-7">
+          <ol>
+              <todo-item
+              v-for = 'item in List'
+              v-bind:todo = item
+              v-bind:todo = item.key
+              ></todo-item>
+          </ol>
+      </div>
+      <div v-show = 'ok'>测试show</div>
+
+
+      <div id="app-8">
+          <input type="text"
+                 v-model='todoList'
+                 v-on:keyup.enter='newtodoList'
+                 placeholder="add in todo"
+          >
+
+          <ul>
+              <li
+                is="todo-items"
+                v-for='(todo,index) in todos'
+                v-bind:id='todo.id'
+                v-bind:title='todo.title'
+                v-on:remove ='todos.splice(index,1)'
+              ></li>
+              <!--<li v-for = "todo in todos">-->
+                  <!--{{todo.title}}-->
+              <!--</li>-->
+          </ul>
+
+      </div>
+    <!--测试multiple 属性-->
+    <div>
+        <select name=""  multiple >
+            <option value="">A</option>
+            <option value="">B</option>
+            <option value="">C</option>
+        </select>
+    </div>
+    <div>
+        <select name="" >
+            <option value="">A</option>
+            <option value="">B</option>
+            <option value="">C</option>
+        </select>
+    </div>
+      <!--华丽分割线-->
+    <div id="app-9">
+        <select v-model = "selected">
+            <option v-for="item in options" v-bind:value="item.value" >
+                {{item.value}}
+            </option>
+        </select>
+        <p>this is select in value: {{selected}}</p>
+    </div>
+    <div id="app-10">
+      <p>{{total}}</p>
+        <berters v-on:inter="inters"></berters>
+        <berters v-on:inter="inters"></berters>
+    </div>
+</body>
+</html>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            massage: 'hello word'
+        }
+    });
+    let app2 = new Vue({
+        el: '#app-2',
+        data: {
+            massage: '这个是测试'
+        }
+    });
+    let app3 = new Vue({
+        el: '#app-3',
+        data: {
+            seen : true
+        }
+    });
+    let app4 = new Vue({
+        el: '#app-4',
+        data: {
+            todos : [
+                {text: '测试1'},
+                {text: '测试1'},
+                {text: '测试1'}
+            ]
+        }
+    });
+    let app5 = new Vue({
+        el: '#app-5',
+        data: {
+            massage: '这是事件测试'
+        },
+        methods: {
+            revermassage:function(){
+                this.massage = this.massage.split('').reverse().join('');
+            }
+        }
+    });
+    let app6 = new Vue({
+        el: '#app-6',
+        data:{
+            massage: '测试'
+        }
+    });
+    Vue.component("todo-item",{
+        props: ['todo'],
+        template: '<li>{{todo.text}}</li>'
+    });
+    let app7 = new Vue({
+        el:'#app-7',
+        data: {
+            List: [
+                {id:0,text:'苹果'},
+                {id:1,text:'香蕉'},
+                {id:2,text:'大西瓜'},
+            ]
+        }
+    });
+    Vue.component("todo-items",{
+        template: '\
+            <li>\
+              {{ title }}\
+              <button v-on:click="$emit(\'remove\')">X</button>\
+            </li>\
+          ',
+        props: ['title'],
+    });
+    let app8 = new Vue({
+        el: '#app-8',
+        data: {
+            todoList: '',
+            todos: [
+                {
+                    id: 0,
+                    title: '苹果'
+                },
+                {
+                    id: 0,
+                    title: '香蕉'
+                },
+                {
+                    id: 0,
+                    title: '大西瓜'
+                },
+            ],
+            todoId:4,
+        },
+        methods: {
+            newtodoList:function(){
+                this.todos.push({
+                    id: this.todoId++,
+                    title: this.todoList
+                });
+                this.todoList = ''
+            }
+        }
+    });
+    let app9 = new Vue({
+        el: '#app-9',
+        data: {
+            selected: 'A',
+            options: [
+                {id: 1, value: 'A'},
+                {id: 2, value: 'B'},
+                {id: 3, value: 'C'},
+            ]
+        }
+    });
+    Vue.component('berters',{
+        template:'<button v-on:click= "childreninters">{{content}} </button>',
+        data: function(){
+            return {
+                content: 0
+            }
+        },
+        methods: {
+            childreninters: function(){
+                this.content += 1;
+                this.$emit("inter")
+            }
+        }
+
+    });
+    let app10 = new Vue({
+        el: '#app-10',
+        data: {
+            total: 0
+        },
+        methods: {
+            inters: function(){
+                this.total +=1
+            }
+        }
+    })
+</script>

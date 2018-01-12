@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function A(name){
+        this.name = name;
+        this.sayHello = function(){
+            console.log('你好！' + this.name);
+        }
+    };
+    function B(name){
+        this.emlp = A;
+        this.emlp(name);
+    }
+    let Bos = new A();
+    console.log(Bos.emlp("xiaol"));
+</script>
