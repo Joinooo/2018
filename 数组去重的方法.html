@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let arr1 = [1,2,3,1,2,3,4,5,4,5];
+
+    function arry(arr){
+        let newarr = [];
+        for(let i = 0; i < arr.length;i++){
+           if(newarr.indexOf(arr[i]) === -1){
+               newarr.push(arr[i]);
+           }
+        }
+        return newarr;
+    }
+
+    function unique(arr){
+        let ary = [];
+        let json = {};
+        for(let i = 0; i<arr.length; i++){
+            if(!json[arr[i]]){
+                ary.push(arr[i]);
+                json[arr[i]] = 1;
+            }
+        }
+        return ary;
+    }
+    console.log(unique(arr1));
+</script>
